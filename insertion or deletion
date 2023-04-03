@@ -1,0 +1,69 @@
+#include<stdio.h>
+#include<stdlib.h>
+int a[20],n;
+void create()
+{
+	int i;
+	printf("\n Enter n");
+	scanf("%d",&n);
+	printf("\n Enter the elements");
+	for(i=0;i<n;i++)
+		scanf("%d",&a[i]);
+}
+
+void display()
+{
+	int i;
+	printf("\n The elements are");
+	for(i=0;i<n;i++)
+		printf("%d   ",a[i]);
+}
+
+void insert()
+{
+	int i,key,pos;
+	printf("\n Enter key and position");
+	scanf("%d%d",&key,&pos);
+	
+	for(i=n-1;i>=pos-1;i--)
+		a[i+1]=a[i];
+	
+	a[i+1]=key;
+	n++;
+}
+
+void del()
+{
+	int i,pos;
+	
+	printf("\n Enter the position to be deleted");
+	scanf("%d",&pos);
+	
+	for(i=pos;i<n;i++)
+		a[i-1]=a[i];
+		
+	n--;
+}
+
+int main()
+{
+	int c,a;
+	while(1)
+	{
+		printf("\n  1. Create\n 2. Display\n 3 Insert\n 4 Delete \n 5 Exit\n");
+		printf("Enter the choice\n");
+		scanf("%d",&c);
+		switch(c)
+		{
+		case 1:create();break;
+		
+		case 2:display(); break;
+
+		case 3:insert(); break;
+
+		case 4:del(); break;
+
+		default:exit(0);
+		}
+	}
+}
