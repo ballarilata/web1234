@@ -1,0 +1,125 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct dll
+{
+	int *info;
+	struct dll *rptr,*lptr;
+};
+typedef struct dll node;
+node *start=NULL;
+node *getnode()
+{
+	node *p;
+	p=(node*)malloc(sizeof(node));
+	printf("enter the data\n");
+	scanf("%d",&p->info);
+	p->lptr,p->rptr=NULL;
+	return(p);
+}
+void insert_front()
+{
+	node *new1;
+	new1=getnode();
+	if(start==NULL)
+	{
+		start=new1;
+		return;
+	}
+	new1->rptr=start;
+	start->lptr=new1;
+	start=new1;
+}
+void insert_end()
+{
+	node *new1,*temp=start;
+	new1=getnode();
+	if(start==NULL)
+	{
+		start=new1;
+		return;
+	}
+	while(temp->rptr!=NULL)
+	temp=temp->rptr;
+	temp->rptr=new1;
+	new1->lptr=temp;
+}
+void delete_front()
+{
+	node *temp=start;
+	if(start==NULL)
+	{
+		printf("the list is empty");
+		return;
+	}
+	start=start->rptr;
+	start->lptr=NULL;
+	printf("the value deleted is %d\t",temp->info);
+	free(temp);
+}
+void delete_end()
+{
+	node *temp=start;
+	if(start==NULL)
+	{
+		printf("the list is empty");
+		return;
+	}
+	if(start->rptr==NULL)
+	{
+		start=NULL;
+		printf("the deleted value is %d",start->info);
+		free(start);
+	}
+	while(temp->rptr!=NULL)
+	temp=temp->rptr;
+	(temp->lptr)->rptr=NULL;
+	printf("the value deleted is %d\n",temp->info);
+	free(temp);
+}
+void display()
+{
+	node *temp=start;
+	printf("the elements in list are \n");
+	while(temp!=NULL)
+	{
+		printf("%d\t",temp->info);
+		temp=temp->rptr;
+	}
+}
+void reverse()
+{
+	node *temp=start;
+	if(start==NULL)
+	{
+		printf("the stack is empty\n");
+		return;
+	}
+	while(temp->rptr!=NULL)
+	temp=temp->rptr;
+	printf("the elements in the list in reverse order are:\n");
+	while(temp!=NULL)
+	{
+	 printf("%d\n",temp->info);
+	 temp=temp->lptr;
+	}	
+}
+void main()
+{
+	int ch;
+	while(1)
+	{
+		printf("1.insert_front\n2.insert_end\n3.delete_front\n4.delete_end\n5.display\n6.reverse\n7.exit\n");
+		printf("enter the choice\n");
+		scanf("%d",&ch);
+		switch(ch)
+		{
+			case 1:insert_front();break;
+			case 2:insert_end();break;
+			case 3:delete_front();break;
+			case 4:delete_end();break;
+			case 5:display();break;
+			case 6:reverse();break;
+			default:printf("enter correct chioce\n");break;
+		}
+	}
+}
